@@ -1,0 +1,39 @@
+# Node
+node_modules
+dist
+build
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Tauri / Rust
+src-tauri/target
+target
+
+# Debug symbols / binaries
+*.pdb
+*.rlib
+*.rmeta
+*.lib
+*.dll
+*.exe
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode
+.idea
+
+# Generated files
+*.tmp
+*.cache

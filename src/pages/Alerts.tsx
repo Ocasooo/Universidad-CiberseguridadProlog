@@ -1,0 +1,139 @@
+import { useState, useMemo } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ShieldAlert, Search, Filter } from 'lucide-react';
+import { AlertCard } from '@/components/AlertCard';
+import { Input } from '@/components/ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { useLogsStore } from '@/store/logsStore';
+import { ruleLabels } from '@/utils/mapper';
+import type { Alert } from '@/types';
+
+const ruleNames: Record<string, string> = {};
+for (const [key, val] of Object.entries(ruleLabels)) {
+  ruleNames[key] = val.title;
+}
+
+export function AlertsPage() {
+  const { alerts } = useLogsStore();
+  const [search, setSearch] = useState('');
+  const [severityFilter, setSeverityFilter] = useState('all');
+  const [statusFilter, setStatusFilter] = useState('all');
+  const [ruleFilter, setRuleFilter] = useState('all');
+
+  const ruleTypes = useMemo(() => {
+    const types = new Set(alerts.map(a => a.rule).filter(Boolean));
+    return Array.from(types);
+  }, [alerts]);
+
+  const filteredAlerts = useMemo(() => {
+    return alerts.filter((a) => {
+      const matchSearch = !search || 
+        a.title.toLowerCase().includes(search.toLowerCase()) ||
+        a.ip.toLowerCase().includes(search.toLowerCase()) ||
+        a.user.toLowerCase().includes(search.toLowerCase());
+      const matchSeverity = severityFilter === 'all' || a.severity === severityFilter;
+      const matchStatus = statusFilter === 'all' || a.status === statusFilter;
+      const matchRule = ruleFilter === 'all' || a.rule === ruleFilter;
+      return matchSearch && matchSeverity && matchRule && matchStatus;
+    });
+  }, [alerts, search, severityFilter, statusFilter, ruleFilter]);
+
+  const tabs = [
+    { value: 'all', label: 'Todas', count: alerts.length },
+    { value: 'active', label: 'Activas', count: alerts.filter((a) => a.status === 'active').length },
+    { value: 'investigating', label: 'Investigando', count: alerts.filter((a) => a.status === 'investigating').length },
+    { value: 'resolved', label: 'Resueltas', count: alerts.filter((a) => a.status === 'resolved').length },
+  ];
+
+  return (
+    <div className="space-y-6">
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <div className="flex items-center gap-2">
+          <ShieldAlert className="h-5 w-5 text-destructive" />
+          <h2 className="text-lg font-semibold">Centro de Alertas</h2>
+          <span className="text-xs text-muted-foreground bg-muted/50 px-2 py-0.5 rounded-full">
+            {alerts.length} total
+          </span>
+        </div>
+      </div>
+
+      <Tabs defaultValue="all" onValueChange={(v) => setStatusFilter(v === 'all' ? 'all' : v)}>
+        <TabsList>
+          {tabs.map((tab) => (
+            <TabsTrigger key={tab.value} value={tab.value} className="relative">
+              {tab.label}
+              <span className="ml-1.5 text-xs text-muted-foreground">({tab.count})</span>
+            </TabsTrigger>
+          ))}
+        </TabsList>
+      </Tabs>
+
+      <div className="flex flex-wrap items-center gap-3">
+        <div className="relative flex-1 min-w-[200px] max-w-sm">
+          <Search className="absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            placeholder="Buscar en alertas..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="h-9 pl-9 text-sm bg-muted/50"
+            aria-label="Buscar alertas"
+          />
+        </div>
+        <Select value={severityFilter} onValueChange={setSeverityFilter}>
+          <SelectTrigger className="w-32 h-9">
+            <SelectValue placeholder="Severidad" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">Todas</SelectItem>
+            <SelectItem value="critical">Crítico</SelectItem>
+            <SelectItem value="high">Alto</SelectItem>
+            <SelectItem value="medium">Medio</SelectItem>
+            <SelectItem value="low">Bajo</SelectItem>
+            <SelectItem value="info">Info</SelectItem>
+          </SelectContent>
+        </Select>
+        {ruleTypes.length > 0 && (
+          <Select value={ruleFilter} onValueChange={setRuleFilter}>
+            <SelectTrigger className="w-44 h-9">
+              <SelectValue placeholder="Tipo de regla" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">Todas las reglas</SelectItem>
+              {ruleTypes.map((type) => (
+                <SelectItem key={type} value={type}>
+                  {ruleNames[type] || type}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        )}
+      </div>
+
+      <AnimatePresence mode="popLayout">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          {filteredAlerts.map((alert, idx) => (
+            <AlertCard
+              key={alert.id}
+              alert={alert}
+              index={idx}
+            />
+          ))}
+        </div>
+      </AnimatePresence>
+
+      {filteredAlerts.length === 0 && (
+        <div className="flex flex-col items-center justify-center py-16 text-muted-foreground">
+          <ShieldAlert className="h-12 w-12 mb-3 opacity-30" />
+          <p className="text-sm">No se encontraron alertas con los filtros actuales</p>
+        </div>
+      )}
+    </div>
+  );
+}

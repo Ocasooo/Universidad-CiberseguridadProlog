@@ -1,0 +1,58 @@
+import { Report } from "@/types";
+
+export const mockReports: Report[] = [
+  {
+    id: "RPT-001",
+    title: "Reporte Diario - 21 Mayo 2026",
+    date: "2026-05-21T10:00:00Z",
+    threatsDetected: 12,
+    status: "generated",
+    generatedBy: "admin",
+    summary: "12 amenazas detectadas: 3 críticas, 4 altas, 3 medias, 2 bajas. 2 IPs bloqueadas. 1 incidente abierto.",
+  },
+  {
+    id: "RPT-002",
+    title: "Reporte Semanal S18",
+    date: "2026-05-18T23:59:00Z",
+    threatsDetected: 87,
+    status: "generated",
+    generatedBy: "admin",
+    summary: "87 amenazas en la semana. Incremento del 15% en intentos de fuerza bruta. Nuevas reglas Prolog implementadas.",
+  },
+  {
+    id: "RPT-003",
+    title: "Reporte Mensual Abril 2026",
+    date: "2026-04-30T23:59:00Z",
+    threatsDetected: 345,
+    status: "generated",
+    generatedBy: "operator",
+    summary: "345 amenazas en el mes. Reducción del 22% vs mes anterior. 45 IPs añadidas a blacklist.",
+  },
+  {
+    id: "RPT-004",
+    title: "Análisis de Vulnerabilidades",
+    date: "2026-05-15T14:30:00Z",
+    threatsDetected: 28,
+    status: "generated",
+    generatedBy: "admin",
+    summary: "28 vulnerabilidades identificadas: 5 críticas, 12 altas, 8 medias, 3 bajas. Parches recomendados.",
+  },
+  {
+    id: "RPT-005",
+    title: "Reporte de Incidentes - Q1 2026",
+    date: "2026-03-31T23:59:00Z",
+    threatsDetected: 892,
+    status: "generated",
+    generatedBy: "admin",
+    summary: "892 incidentes en Q1. Tasa de resolución del 94%. Tiempo medio de respuesta: 15 minutos.",
+  },
+  {
+    id: "RPT-006",
+    title: "Reporte de Cumplimiento Normativo",
+    date: "2026-05-10T12:00:00Z",
+    threatsDetected: 0,
+    status: "pending",
+    generatedBy: "system",
+    summary: "Auditoría de cumplimiento en progreso. Verificando controles de seguridad y políticas.",
+  },
+];

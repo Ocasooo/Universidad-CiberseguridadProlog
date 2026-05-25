@@ -1,5 +1,4 @@
 import { useState, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import {
   ChevronDown,
   ChevronUp,
@@ -129,43 +128,36 @@ export function LogsTable() {
               </tr>
             </thead>
             <tbody>
-              <AnimatePresence mode="popLayout">
-                {pagedLogs.map((log, idx) => (
-                  <motion.tr
-                    key={log.id}
-                    layout
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 10 }}
-                    transition={{ duration: 0.2, delay: idx * 0.02 }}
-                    className={cn(
-                      'border-b border-border/20 transition-colors hover:bg-muted/20',
-                      log.severity === 'critical' && 'border-l-2 border-l-destructive'
-                    )}
-                    role="row"
-                  >
-                    <td className="px-4 py-3 text-xs font-mono text-muted-foreground whitespace-nowrap">
-                      {formatTimestamp(log.timestamp)}
-                    </td>
-                    <td className="px-4 py-3 text-sm font-medium">{log.user}</td>
-                    <td className="px-4 py-3 text-xs font-mono text-muted-foreground">{log.ip}</td>
-                    <td className="px-4 py-3">
-                      <Badge variant={statusConfig[log.status].variant} className="text-[10px] px-2 py-0.5">
-                        {statusConfig[log.status].label}
-                      </Badge>
-                    </td>
-                    <td className="px-4 py-3">
-                      <Badge variant={severityConfig[log.severity].variant} className="text-[10px] px-2 py-0.5">
-                        {severityConfig[log.severity].label}
-                      </Badge>
-                    </td>
-                    <td className="px-4 py-3 text-xs text-muted-foreground max-w-[200px] truncate">
-                      {log.rule}
-                    </td>
-                    <td className="px-4 py-3 text-sm">{log.action}</td>
-                  </motion.tr>
-                ))}
-              </AnimatePresence>
+              {pagedLogs.map((log) => (
+                <tr
+                  key={log.id}
+                  className={cn(
+                    'border-b border-border/20 transition-colors hover:bg-muted/20',
+                    log.severity === 'critical' && 'border-l-2 border-l-destructive'
+                  )}
+                  role="row"
+                >
+                  <td className="px-4 py-3 text-xs font-mono text-muted-foreground whitespace-nowrap">
+                    {formatTimestamp(log.timestamp)}
+                  </td>
+                  <td className="px-4 py-3 text-sm font-medium">{log.user}</td>
+                  <td className="px-4 py-3 text-xs font-mono text-muted-foreground">{log.ip}</td>
+                  <td className="px-4 py-3">
+                    <Badge variant={statusConfig[log.status].variant} className="text-[10px] px-2 py-0.5">
+                      {statusConfig[log.status].label}
+                    </Badge>
+                  </td>
+                  <td className="px-4 py-3">
+                    <Badge variant={severityConfig[log.severity].variant} className="text-[10px] px-2 py-0.5">
+                      {severityConfig[log.severity].label}
+                    </Badge>
+                  </td>
+                  <td className="px-4 py-3 text-xs text-muted-foreground max-w-[200px] truncate">
+                    {log.rule}
+                  </td>
+                  <td className="px-4 py-3 text-sm">{log.action}</td>
+                </tr>
+              ))}
               {pagedLogs.length === 0 && (
                 <tr>
                   <td colSpan={7} className="px-4 py-12 text-center text-muted-foreground">

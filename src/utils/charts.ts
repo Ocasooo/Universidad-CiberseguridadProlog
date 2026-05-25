@@ -72,7 +72,13 @@ export function computeThreatDistribution(alerts: Alert[]): ThreatDistribution[]
     'Acceso simultaneo sospechoso': '#3b82f6',
     'Acceso desde multiples paises': '#8b5cf6',
     'Usuario con solo fallos': '#ec4899',
-    'Ataque coordinado desde pais': '#ef4444',
+    'Ataque coordinado desde pais': '#06b6d4',
+    'Acceso desde IP maliciosa': '#14b8a6',
+    'Multiples IPs detectadas': '#f43f5e',
+    'Actividad sospechosa': '#a855f7',
+    'Evento critico': '#84cc16',
+    'Usuario critico': '#0ea5e9',
+    'Ataque por IP detectado': '#d946ef',
   };
 
   for (const alert of alerts) {

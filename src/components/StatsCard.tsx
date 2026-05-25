@@ -54,22 +54,6 @@ export function StatsCard({ title, value, trend, icon, suffix, delay = 0 }: Stat
               <span className="text-xs text-muted-foreground">{suffix}</span>
             )}
           </div>
-          <div className="flex items-center gap-1">
-            {isPositive ? (
-              <TrendingUp className="h-3.5 w-3.5 text-success" />
-            ) : (
-              <TrendingDown className="h-3.5 w-3.5 text-destructive" />
-            )}
-            <span
-              className={cn(
-                'text-xs font-medium',
-                isPositive ? 'text-success' : 'text-destructive'
-              )}
-            >
-              {isPositive ? '+' : ''}{trend.toFixed(1)}%
-            </span>
-            <span className="text-xs text-muted-foreground">vs ayer</span>
-          </div>
         </div>
 
         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 group-hover:bg-primary/15 transition-colors duration-300">

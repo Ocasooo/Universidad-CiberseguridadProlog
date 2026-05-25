@@ -66,7 +66,7 @@ export function CSVModal({ open, onClose }: CSVModalProps) {
       if (ex.name === 'AbortError') {
         setError('El servidor no respondio en 15 segundos. Asegurate de que el backend este corriendo (puerto 3001).');
       } else if (ex instanceof TypeError && ex.message.includes('fetch')) {
-        setError('No se pudo conectar con el backend. Ejecuta "npm start" en la carpeta backend/ primero.');
+        setError('No se pudo conectar con el backend.');
       } else {
         setError(ex.message || 'Error al procesar el archivo. Verifica que el backend este corriendo.');
       }

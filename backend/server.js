@@ -138,7 +138,7 @@ app.get('/blacklist', (_req, res) => {
     }
     const content = fs.readFileSync(prologFile, 'utf-8');
     const ips = [];
-    const regex = /blacklist\(['"]?([^'")\n]+)['"]?\)/g;
+    const regex = /^[\t ]*blacklist\('([^']+)'\)\./gm;
     let match;
     while ((match = regex.exec(content)) !== null) {
       ips.push(match[1]);

@@ -60,7 +60,6 @@ export function SettingsPage() {
                       >
                         {rule.severity}
                       </Badge>
-                      <Badge variant="success" className="text-[9px] px-1.5">Activa</Badge>
                     </div>
                     <p className="text-xs text-muted-foreground mt-1">{rule.description}</p>
                     <code className="text-[10px] font-mono text-muted-foreground block mt-1 truncate">
@@ -70,25 +69,6 @@ export function SettingsPage() {
                 </div>
               ))}
             </div>
-          </CardContent>
-        </Card>
-
-        <Card className="border-border/50 border-destructive/30 bg-card/50 backdrop-blur-sm">
-          <CardHeader>
-            <div className="flex items-center gap-2">
-              <Trash2 className="h-5 w-5 text-destructive" />
-              <CardTitle className="text-sm font-medium">Restablecer Datos</CardTitle>
-            </div>
-            <CardDescription>Limpia los datos de la sesión actual</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <p className="text-xs text-muted-foreground mb-3">
-              Borra los datos cargados en la sesión actual. La base de conocimiento Prolog se reinicia automáticamente cada vez que el backend arranca.
-            </p>
-            <Button variant="destructive" size="sm" className="gap-2" onClick={handleResetData}>
-              <Trash2 className="h-4 w-4" />
-              Restablecer todo
-            </Button>
           </CardContent>
         </Card>
       </div>

@@ -1,5 +1,3 @@
-# CyberLogic Audit
-
 **Sistema de Monitoreo de Ciberseguridad con Motor de Inferencia Prolog**
 
 CyberLogic Audit es una aplicación full-stack que permite analizar logs de acceso mediante un motor de reglas lógicas escrito en Prolog. Detecta automáticamente amenazas como fuerza bruta, accesos fuera de horario, IPs blacklisteadas, ataques coordinados, y más, presentando los resultados en un dashboard interactivo.

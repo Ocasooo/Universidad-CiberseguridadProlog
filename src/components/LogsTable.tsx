@@ -6,14 +6,11 @@ import {
   ChevronsUpDown,
   ChevronLeft,
   ChevronRight,
-  Search,
   ArrowUpDown,
   AlertCircle,
 } from 'lucide-react';
 import { useLogsStore } from '@/store/logsStore';
-import { useAppStore } from '@/store/appStore';
 import { Badge } from '@/components/ui/badge';
-import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
@@ -43,26 +40,13 @@ const severityConfig: Record<Severity, { label: string; variant: 'critical' | 'h
 const ROWS_PER_PAGE = 15;
 
 export function LogsTable() {
-  const { logs, filteredLogs, setFilteredLogs, logSearch, setLogSearch, severityFilter, setSeverityFilter } = useLogsStore();
-  const { globalSearch } = useAppStore();
+  const { logs, severityFilter, setSeverityFilter } = useLogsStore();
   const [page, setPage] = useState(1);
   const [sortField, setSortField] = useState<keyof LogEntry | null>(null);
   const [sortDir, setSortDir] = useState<'asc' | 'desc'>('desc');
 
   const processedLogs = useMemo(() => {
     let result = [...logs];
-    const search = logSearch || globalSearch;
-    if (search) {
-      const q = search.toLowerCase();
-      result = result.filter(
-        (l) =>
-          l.id.toLowerCase().includes(q) ||
-          l.user.toLowerCase().includes(q) ||
-          l.ip.toLowerCase().includes(q) ||
-          l.action.toLowerCase().includes(q) ||
-          l.rule.toLowerCase().includes(q)
-      );
-    }
     if (severityFilter !== 'all') {
       result = result.filter((l) => l.severity === severityFilter);
     }
@@ -74,7 +58,7 @@ export function LogsTable() {
       });
     }
     return result;
-  }, [logs, logSearch, globalSearch, severityFilter, sortField, sortDir]);
+  }, [logs, severityFilter, sortField, sortDir]);
 
   const totalPages = Math.ceil(processedLogs.length / ROWS_PER_PAGE);
   const pagedLogs = processedLogs.slice((page - 1) * ROWS_PER_PAGE, page * ROWS_PER_PAGE);
@@ -97,16 +81,7 @@ export function LogsTable() {
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap items-center gap-3">
-        <div className="relative flex-1 min-w-[200px] max-w-sm">
-          <Search className="absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <Input
-            placeholder="Buscar en logs..."
-            value={logSearch}
-            onChange={(e) => { setLogSearch(e.target.value); setPage(1); }}
-            className="h-9 pl-9 text-sm bg-muted/50"
-            aria-label="Buscar en logs"
-          />
-        </div>
+
         <Select value={severityFilter} onValueChange={(v) => { setSeverityFilter(v); setPage(1); }}>
           <SelectTrigger className="w-32 h-9">
             <SelectValue placeholder="Severidad" />

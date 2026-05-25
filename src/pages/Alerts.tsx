@@ -1,8 +1,7 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShieldAlert, Search, Filter } from 'lucide-react';
+import { ShieldAlert, Filter } from 'lucide-react';
 import { AlertCard } from '@/components/AlertCard';
-import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
@@ -22,7 +21,6 @@ for (const [key, val] of Object.entries(ruleLabels)) {
 
 export function AlertsPage() {
   const { alerts } = useLogsStore();
-  const [search, setSearch] = useState('');
   const [severityFilter, setSeverityFilter] = useState('all');
   const [statusFilter, setStatusFilter] = useState('all');
   const [ruleFilter, setRuleFilter] = useState('all');
@@ -34,21 +32,16 @@ export function AlertsPage() {
 
   const filteredAlerts = useMemo(() => {
     return alerts.filter((a) => {
-      const matchSearch = !search || 
-        a.title.toLowerCase().includes(search.toLowerCase()) ||
-        a.ip.toLowerCase().includes(search.toLowerCase()) ||
-        a.user.toLowerCase().includes(search.toLowerCase());
       const matchSeverity = severityFilter === 'all' || a.severity === severityFilter;
       const matchStatus = statusFilter === 'all' || a.status === statusFilter;
       const matchRule = ruleFilter === 'all' || a.rule === ruleFilter;
-      return matchSearch && matchSeverity && matchRule && matchStatus;
+      return matchSeverity && matchRule && matchStatus;
     });
-  }, [alerts, search, severityFilter, statusFilter, ruleFilter]);
+  }, [alerts, severityFilter, statusFilter, ruleFilter]);
 
   const tabs = [
     { value: 'all', label: 'Todas', count: alerts.length },
     { value: 'active', label: 'Activas', count: alerts.filter((a) => a.status === 'active').length },
-    { value: 'investigating', label: 'Investigando', count: alerts.filter((a) => a.status === 'investigating').length },
     { value: 'resolved', label: 'Resueltas', count: alerts.filter((a) => a.status === 'resolved').length },
   ];
 
@@ -76,16 +69,6 @@ export function AlertsPage() {
       </Tabs>
 
       <div className="flex flex-wrap items-center gap-3">
-        <div className="relative flex-1 min-w-[200px] max-w-sm">
-          <Search className="absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <Input
-            placeholder="Buscar en alertas..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="h-9 pl-9 text-sm bg-muted/50"
-            aria-label="Buscar alertas"
-          />
-        </div>
         <Select value={severityFilter} onValueChange={setSeverityFilter}>
           <SelectTrigger className="w-32 h-9">
             <SelectValue placeholder="Severidad" />
@@ -96,7 +79,6 @@ export function AlertsPage() {
             <SelectItem value="high">Alto</SelectItem>
             <SelectItem value="medium">Medio</SelectItem>
             <SelectItem value="low">Bajo</SelectItem>
-            <SelectItem value="info">Info</SelectItem>
           </SelectContent>
         </Select>
         {ruleTypes.length > 0 && (

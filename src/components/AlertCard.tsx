@@ -36,7 +36,7 @@ export function AlertCard({ alert, index = 0 }: AlertCardProps) {
   const handleClassify = (classification: 'seguro' | 'peligro') => {
     updateAlert(alert.id, {
       classification,
-      status: classification === 'seguro' ? 'resolved' : 'investigating',
+      status: 'resolved',
     });
   };
 
@@ -119,7 +119,7 @@ export function AlertCard({ alert, index = 0 }: AlertCardProps) {
               variant="ghost"
               size="sm"
               className="gap-1.5 text-xs"
-              disabled={alert.classification === 'seguro'}
+              disabled={alert.classification !== undefined}
             >
               <CheckCircle className="h-3.5 w-3.5" />
               Revisado

@@ -163,13 +163,17 @@ export function ReportGenerator({ open, onClose }: ReportGeneratorProps) {
 
         <div className="space-y-4">
           <div className="space-y-2">
-            <label className="text-xs font-medium text-muted-foreground">Título del reporte</label>
-            <Input
-              placeholder="Ej: Reporte Diario - 21 Mayo 2026"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              aria-label="Título del reporte"
-            />
+            <label className="text-sm font-medium">Título del reporte</label>
+            <div className="relative">
+              <FileText className="absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                placeholder="Ej: Reporte Diario - 21 Mayo 2026"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className="h-10 pl-9 text-sm bg-muted/50"
+                aria-label="Título del reporte"
+              />
+            </div>
           </div>
 
           <div className="grid grid-cols-2 gap-3">

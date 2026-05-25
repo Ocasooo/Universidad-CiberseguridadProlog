@@ -58,17 +58,6 @@ export function Topbar({ onOpenCSVModal, onGenerateReport }: TopbarProps) {
         </div>
       </div>
 
-      <div className="relative w-64">
-        <Search className="absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-        <Input
-          placeholder="Buscar en logs, IPs, usuarios..."
-          value={globalSearch}
-          onChange={(e) => setGlobalSearch(e.target.value)}
-          className="h-9 pl-9 text-sm bg-muted/50 border-muted focus:bg-background"
-          aria-label="Búsqueda global"
-        />
-      </div>
-
       <div className="flex items-center gap-3 text-sm">
 
         <div className="text-right">

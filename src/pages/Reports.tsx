@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
   FileBarChart,
-  Download,
   FileText,
   Calendar,
   CheckCircle,
@@ -90,12 +89,6 @@ export function ReportsPage() {
                     </div>
                   </div>
 
-                  {report.status === 'generated' && (
-                    <Button variant="outline" size="sm" className="gap-1.5 shrink-0">
-                      <Download className="h-3.5 w-3.5" />
-                      Descargar
-                    </Button>
-                  )}
                 </div>
               </CardContent>
             </Card>

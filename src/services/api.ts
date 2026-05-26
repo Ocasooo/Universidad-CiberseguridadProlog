@@ -61,5 +61,14 @@ export async function uploadCSV(content: string, fileName: string) {
   return res.json();
 }
 
+export async function fetchReport(): Promise<string> {
+  const res = await fetchWithTimeout(`${API_BASE}/report`);
+  if (!res.ok) {
+    const errBody = await res.json().catch(() => ({ error: 'Error del servidor' }));
+    throw new Error(errBody.error || `Error HTTP ${res.status}`);
+  }
+  return res.text();
+}
+
 export async function resetBackendProlog(): Promise<void> {
 }

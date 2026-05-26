@@ -196,6 +196,33 @@
     usuario_sospechoso(Usuario) :-
         uso_puerto_peligroso(Usuario).
 
+    %Multiples paises
+
+    multiples_paises(Usuario) :-
+        log(_, Usuario, _, _, _, _, Pais1),
+        log(_, Usuario, _, _, _, _, Pais2),
+        Pais1 \= Pais2.
+
+    %Solo Fallos
+
+    solo_fallos(Usuario) :-
+        log(_, Usuario, _, fallo, _, _, _),
+        \+ log(_, Usuario, _, exito, _, _, _).
+
+    %Ataque coordinado
+
+    ataque_coordinado(Pais) :-
+        findall(
+            Usuario,
+            (
+                log(_, Usuario, _, fallo, _, _, Pais),
+                rol(Usuario, desconocido)
+            ),
+            Lista
+        ),
+        length(Lista, N),
+        N >= 3.
+
 
     %Generar alertas
 
@@ -213,7 +240,7 @@
 
     alerta(alta, Usuario, 'Acceso simultaneo sospechoso') :-
         acceso_simultaneo(Usuario).
-
+            
     %Reporte
     generar_reporte :-
         tell('reporte.txt'),
@@ -239,8 +266,17 @@
             forall(
                 member(U, ListaCriticos),
                 (
-                    write('Usuario critico detectado: '),
-                    write(U),
+                    once(log(TS, U, IP, Estado, Hora, Puerto, Pais)),
+                    rol(U, Rol),
+
+                    write('Usuario: '), write(U),
+                    write(' | Rol: '), write(Rol),
+                    write(' | IP: '), write(IP),
+                    write(' | Pais: '), write(Pais),
+                    write(' | Hora: '), write(Hora),
+                    write(' | Estado: '), write(Estado),
+                    write(' | Puerto: '), write(Puerto),
+                    write(' | Timestamp: '), write(TS),
                     nl
                 )
             )
@@ -267,8 +303,17 @@
             forall(
                 member(U, ListaSospechosos),
                 (
-                    write('Usuario sospechoso: '),
-                    write(U),
+                    once(log(TS2, U, IP2, Estado2, Hora2, Puerto2, Pais2)),
+                    rol(U, Rol2),
+
+                    write('Usuario: '), write(U),
+                    write(' | Rol: '), write(Rol2),
+                    write(' | IP: '), write(IP2),
+                    write(' | Pais: '), write(Pais2),
+                    write(' | Hora: '), write(Hora2),
+                    write(' | Estado: '), write(Estado2),
+                    write(' | Puerto: '), write(Puerto2),
+                    write(' | Timestamp: '), write(TS2),
                     nl
                 )
             )
@@ -292,8 +337,14 @@
         forall(
             admin_fuera_horario(U1),
             (
-                write('[ALTA] '),
-                write(U1),
+                once(log(TS1, U1, IP1, _, Hora1, Puerto1, Pais1)),
+
+                write('[ALTA] Usuario: '), write(U1),
+                write(' | IP: '), write(IP1),
+                write(' | Pais: '), write(Pais1),
+                write(' | Hora: '), write(Hora1),
+                write(' | Puerto: '), write(Puerto1),
+                write(' | Timestamp: '), write(TS1),
                 write(' -> Administrador fuera de horario'),
                 nl
             )
@@ -306,8 +357,23 @@
         forall(
             fuerza_bruta(U2),
             (
-                write('[CRITICA] '),
-                write(U2),
+                once(log(TS2, U2, IP2, _, Hora2, Puerto2, Pais2)),
+
+                findall(
+                    1,
+                    log(_, U2, _, fallo, _, _, _),
+                    Fallos
+                ),
+
+                length(Fallos, CantFallos),
+
+                write('[CRITICA] Usuario: '), write(U2),
+                write(' | IP: '), write(IP2),
+                write(' | Pais: '), write(Pais2),
+                write(' | Hora: '), write(Hora2),
+                write(' | Puerto: '), write(Puerto2),
+                write(' | Fallos: '), write(CantFallos),
+                write(' | Timestamp: '), write(TS2),
                 write(' -> Fuerza bruta detectada'),
                 nl
             )
@@ -320,8 +386,14 @@
         forall(
             acceso_malicioso(U3),
             (
-                write('[CRITICA] '),
-                write(U3),
+                once(log(TS3, U3, IP3, _, Hora3, Puerto3, Pais3)),
+
+                write('[CRITICA] Usuario: '), write(U3),
+                write(' | IP blacklist: '), write(IP3),
+                write(' | Pais: '), write(Pais3),
+                write(' | Hora: '), write(Hora3),
+                write(' | Puerto: '), write(Puerto3),
+                write(' | Timestamp: '), write(TS3),
                 write(' -> Acceso desde IP blacklist'),
                 nl
             )
@@ -334,8 +406,14 @@
         forall(
             multiples_ips(U4),
             (
-                write('[MEDIA] '),
-                write(U4),
+                once(log(TS4, U4, IP4, _, Hora4, Puerto4, Pais4)),
+
+                write('[MEDIA] Usuario: '), write(U4),
+                write(' | IP: '), write(IP4),
+                write(' | Pais: '), write(Pais4),
+                write(' | Hora: '), write(Hora4),
+                write(' | Puerto: '), write(Puerto4),
+                write(' | Timestamp: '), write(TS4),
                 write(' -> Multiples IPs detectadas'),
                 nl
             )
@@ -348,8 +426,14 @@
         forall(
             acceso_simultaneo(U5),
             (
-                write('[ALTA] '),
-                write(U5),
+                once(log(TS5, U5, IP5, _, Hora5, Puerto5, Pais5)),
+
+                write('[ALTA] Usuario: '), write(U5),
+                write(' | IP: '), write(IP5),
+                write(' | Pais: '), write(Pais5),
+                write(' | Hora: '), write(Hora5),
+                write(' | Puerto: '), write(Puerto5),
+                write(' | Timestamp: '), write(TS5),
                 write(' -> Acceso simultaneo sospechoso'),
                 nl
             )
@@ -362,8 +446,14 @@
         forall(
             intrusion_probable(U6),
             (
-                write('[CRITICA] '),
-                write(U6),
+                once(log(TS6, U6, IP6, _, Hora6, Puerto6, Pais6)),
+
+                write('[CRITICA] Usuario: '), write(U6),
+                write(' | IP: '), write(IP6),
+                write(' | Pais: '), write(Pais6),
+                write(' | Hora: '), write(Hora6),
+                write(' | Puerto: '), write(Puerto6),
+                write(' | Timestamp: '), write(TS6),
                 write(' -> Intrusion probable'),
                 nl
             )
@@ -376,8 +466,14 @@
         forall(
             evento_critico(U7),
             (
-                write('[CRITICA] '),
-                write(U7),
+                once(log(TS7, U7, IP7, _, Hora7, Puerto7, Pais7)),
+
+                write('[CRITICA] Usuario: '), write(U7),
+                write(' | IP: '), write(IP7),
+                write(' | Pais: '), write(Pais7),
+                write(' | Hora: '), write(Hora7),
+                write(' | Puerto: '), write(Puerto7),
+                write(' | Timestamp: '), write(TS7),
                 write(' -> Evento critico detectado'),
                 nl
             )
@@ -388,10 +484,16 @@
         % -----------------------------------------------------
 
         forall(
-            ataque_ip(IP1),
+            ataque_ip(IP8),
             (
-                write('[ALTA] '),
-                write(IP1),
+                once(log(TS8, U8, IP8, _, Hora8, Puerto8, Pais8)),
+
+                write('[ALTA] Usuario: '), write(U8),
+                write(' | IP: '), write(IP8),
+                write(' | Pais: '), write(Pais8),
+                write(' | Hora: '), write(Hora8),
+                write(' | Puerto: '), write(Puerto8),
+                write(' | Timestamp: '), write(TS8),
                 write(' -> Ataque por IP detectado'),
                 nl
             )
@@ -402,10 +504,16 @@
         % -----------------------------------------------------
 
         forall(
-            multiples_paises(U8),
+            multiples_paises(U9),
             (
-                write('[MEDIA] '),
-                write(U8),
+                once(log(TS9, U9, IP9, _, Hora9, Puerto9, Pais9)),
+
+                write('[MEDIA] Usuario: '), write(U9),
+                write(' | IP: '), write(IP9),
+                write(' | Pais: '), write(Pais9),
+                write(' | Hora: '), write(Hora9),
+                write(' | Puerto: '), write(Puerto9),
+                write(' | Timestamp: '), write(TS9),
                 write(' -> Accesos desde multiples paises'),
                 nl
             )
@@ -416,10 +524,25 @@
         % -----------------------------------------------------
 
         forall(
-            solo_fallos(U9),
+            solo_fallos(U10),
             (
-                write('[ALTA] '),
-                write(U9),
+                once(log(TS10, U10, IP10, _, Hora10, Puerto10, Pais10)),
+
+                findall(
+                    1,
+                    log(_, U10, _, fallo, _, _, _),
+                    ListaFallos
+                ),
+
+                length(ListaFallos, CantidadFallos),
+
+                write('[ALTA] Usuario: '), write(U10),
+                write(' | IP: '), write(IP10),
+                write(' | Pais: '), write(Pais10),
+                write(' | Hora: '), write(Hora10),
+                write(' | Puerto: '), write(Puerto10),
+                write(' | Fallos: '), write(CantidadFallos),
+                write(' | Timestamp: '), write(TS10),
                 write(' -> Usuario con solo accesos fallidos'),
                 nl
             )
@@ -430,10 +553,16 @@
         % -----------------------------------------------------
 
         forall(
-            ataque_coordinado(Pais),
+            ataque_coordinado(Pais11),
             (
-                write('[CRITICA] '),
-                write(Pais),
+                once(log(TS11, U11, IP11, _, Hora11, Puerto11, Pais11)),
+
+                write('[CRITICA] Usuario: '), write(U11),
+                write(' | IP: '), write(IP11),
+                write(' | Pais: '), write(Pais11),
+                write(' | Hora: '), write(Hora11),
+                write(' | Puerto: '), write(Puerto11),
+                write(' | Timestamp: '), write(TS11),
                 write(' -> Ataque coordinado detectado'),
                 nl
             )
@@ -462,6 +591,30 @@
 
         findall(
             1,
+            log(_, _, _, exito, _, _, _),
+            Exitos
+        ),
+
+        length(Exitos, TotalExitos),
+
+        write('Accesos exitosos: '),
+        write(TotalExitos),
+        nl,
+
+        findall(
+            1,
+            log(_, _, _, fallo, _, _, _),
+            Fallos
+        ),
+
+        length(Fallos, TotalFallos),
+
+        write('Accesos fallidos: '),
+        write(TotalFallos),
+        nl,
+
+        findall(
+            1,
             fuerza_bruta(_),
             FuerzaBruta
         ),
@@ -482,6 +635,30 @@
 
         write('Usuarios criticos: '),
         write(TotalCriticos),
+        nl,
+
+        findall(
+            1,
+            admin_fuera_horario(_),
+            AdminsFH
+        ),
+
+        length(AdminsFH, TotalAdminsFH),
+
+        write('Administradores fuera de horario: '),
+        write(TotalAdminsFH),
+        nl,
+
+        findall(
+            1,
+            multiples_paises(_),
+            MultiPais
+        ),
+
+        length(MultiPais, TotalMultiPais),
+
+        write('Usuarios con accesos desde multiples paises: '),
+        write(TotalMultiPais),
         nl,
 
         nl,

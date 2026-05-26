@@ -122,8 +122,11 @@ app.get('/statistics', async (_req, res) => {
 });
 
 app.get('/report', async (_req, res) => {
+  if (!fs.existsSync(FACTS_FILE)) {
+    return res.status(400).json({ success: false, error: 'No hay datos cargados. Suba un CSV primero.' });
+  }
   try {
-    const reportPath = await reportService.generateReport();
+    const reportPath = await reportService.generateReport(FACTS_FILE);
     res.download(reportPath, 'reporte_cyberlogic.txt');
   } catch (ex) {
     res.status(500).json({ success: false, error: ex.message });

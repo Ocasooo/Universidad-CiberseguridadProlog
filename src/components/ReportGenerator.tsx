@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FileBarChart, Loader2, Download, FileText, Calendar, AlertTriangle, Shield } from 'lucide-react';
+import { FileBarChart, Loader2, Download, FileText, AlertTriangle, Shield } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -10,14 +10,11 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { useToast } from '@/components/ui/toast';
 import { useLogsStore } from '@/store/logsStore';
-import { useAppStore } from '@/store/appStore';
 import { isTauri, saveFileDialog } from '@/services/tauri';
-import { formatTimestamp } from '@/utils/format';
-
+import { fetchReport } from '@/services/api';
 interface ReportGeneratorProps {
   open: boolean;
   onClose: () => void;
@@ -31,69 +28,20 @@ export function ReportGenerator({ open, onClose }: ReportGeneratorProps) {
   const { logs, alerts, addReport } = useLogsStore();
   const { addToast } = useToast();
 
-  const generateReportContent = () => {
-    const criticalAlerts = alerts.filter((a) => a.severity === 'critical' && a.status === 'active');
-    const highAlerts = alerts.filter((a) => a.severity === 'high');
-    const totalThreats = criticalAlerts.length + highAlerts.length + alerts.filter((a) => a.severity === 'medium').length;
-    const blockedIPs = logs.filter((l) => l.action.toLowerCase().includes('bloque')).length;
-
-    return [
-      '='.repeat(60),
-      'CYBERLOGIC AUDIT - REPORTE DE SEGURIDAD',
-      '='.repeat(60),
-      '',
-      `Título: ${title || 'Reporte de Seguridad'}`,
-      `Generado: ${formatTimestamp(new Date().toISOString())}`,
-      `Generado por: Sistema Automático`,
-      '',
-      '-'.repeat(60),
-      'RESUMEN EJECUTIVO',
-      '-'.repeat(60),
-      '',
-      `Total de amenazas detectadas: ${totalThreats}`,
-      `Alertas críticas activas: ${criticalAlerts.length}`,
-      `Alertas de alta prioridad: ${highAlerts.length}`,
-      `IPs bloqueadas: ${blockedIPs}`,
-      `Total logs procesados: ${logs.length}`,
-      '',
-      '-'.repeat(60),
-      'DETALLE DE AMENAZAS',
-      '-'.repeat(60),
-      '',
-      ...alerts.slice(0, 10).map(
-        (a) =>
-          `[${a.severity.toUpperCase()}] ${a.title} - IP: ${a.ip} - Usuario: ${a.user} - ${a.timestamp}`
-      ),
-      '',
-      '-'.repeat(60),
-      'REGLAS PROLOG EJECUTADAS',
-      '-'.repeat(60),
-      '',
-      ...new Set(alerts.map((a) => a.rule)).values(),
-      '',
-      '-'.repeat(60),
-      'IPs EN BLACKLIST',
-      '-'.repeat(60),
-      '',
-      ...new Set(alerts.map((a) => `${a.ip} - ${a.title}`)),
-      '',
-      '',
-      '='.repeat(60),
-      'FIN DEL REPORTE',
-      '='.repeat(60),
-    ].join('\n');
-  };
-
   const handleGenerate = async () => {
     setLoading(true);
     setProgress(0);
 
-    for (let i = 0; i <= 100; i += 10) {
-      await new Promise((r) => setTimeout(r, 100));
-      setProgress(i);
+    let reportContent: string;
+    try {
+      reportContent = await fetchReport();
+      setProgress(100);
+    } catch (err) {
+      addToast({ type: 'error', title: 'Error', message: err instanceof Error ? err.message : 'No se pudo generar el reporte desde el motor Prolog' });
+      setLoading(false);
+      return;
     }
 
-    const reportContent = generateReportContent();
     const reportTitle = title || `Reporte-${Date.now()}`;
 
     if (isTauri()) {
@@ -197,7 +145,7 @@ export function ReportGenerator({ open, onClose }: ReportGeneratorProps) {
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-sm">
                 <Loader2 className="h-4 w-4 animate-spin text-primary" />
-                Generando reporte...
+                Generando reporte desde motor Prolog...
               </div>
               <Progress value={progress} className="h-2" />
             </div>

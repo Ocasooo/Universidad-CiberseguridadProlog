@@ -1,0 +1,102 @@
+====================================
+          REPORTE COMPLETO          
+====================================
+
+USUARIOS CRITICOS
+------------------
+No se detectaron usuarios criticos
+
+USUARIOS SOSPECHOSOS
+---------------------
+Usuario: admin1 | Rol: administrador | IP: 45.33.22.1 | Pais: rusia | Hora: 2 | Estado: fallo | Puerto: 22 | Timestamp: 2026-05-21 02:10:22
+Usuario: admin1 | Rol: administrador | IP: 45.33.22.1 | Pais: rusia | Hora: 2 | Estado: fallo | Puerto: 22 | Timestamp: 2026-05-21 02:10:22
+No se detectaron usuarios sospechosos
+
+ALERTAS GENERADAS
+------------------
+[ALTA] Usuario: admin1 | IP: 45.33.22.1 | Pais: rusia | Hora: 2 | Puerto: 22 | Timestamp: 2026-05-21 02:10:22 -> Administrador fuera de horario
+[ALTA] Usuario: admin2 | IP: 10.0.0.8 | Pais: argentina | Hora: 23 | Puerto: 443 | Timestamp: 2026-05-21 23:30:10 -> Administrador fuera de horario
+[CRITICA] Usuario: admin1 | IP: 45.33.22.1 | Pais: rusia | Hora: 2 | Puerto: 22 | Fallos: 3 | Timestamp: 2026-05-21 02:10:22 -> Fuerza bruta detectada
+[CRITICA] Usuario: admin1 | IP blacklist: 45.33.22.1 | Pais: rusia | Hora: 2 | Puerto: 22 | Timestamp: 2026-05-21 02:10:22 -> Acceso desde IP blacklist
+[CRITICA] Usuario: admin1 | IP blacklist: 45.33.22.1 | Pais: rusia | Hora: 2 | Puerto: 22 | Timestamp: 2026-05-21 02:10:22 -> Acceso desde IP blacklist
+[CRITICA] Usuario: admin1 | IP blacklist: 45.33.22.1 | Pais: rusia | Hora: 2 | Puerto: 22 | Timestamp: 2026-05-21 02:10:22 -> Acceso desde IP blacklist
+[CRITICA] Usuario: admin1 | IP blacklist: 45.33.22.1 | Pais: rusia | Hora: 2 | Puerto: 22 | Timestamp: 2026-05-21 02:10:22 -> Acceso desde IP blacklist
+[CRITICA] Usuario: hacker1 | IP blacklist: 123.55.77.9 | Pais: china | Hora: 3 | Puerto: 22 | Timestamp: 2026-05-21 03:12:55 -> Acceso desde IP blacklist
+[CRITICA] Usuario: hacker1 | IP blacklist: 123.55.77.9 | Pais: china | Hora: 3 | Puerto: 22 | Timestamp: 2026-05-21 03:12:55 -> Acceso desde IP blacklist
+[CRITICA] Usuario: hacker1 | IP blacklist: 123.55.77.9 | Pais: china | Hora: 3 | Puerto: 22 | Timestamp: 2026-05-21 03:12:55 -> Acceso desde IP blacklist
+[CRITICA] Usuario: hacker1 | IP blacklist: 123.55.77.9 | Pais: china | Hora: 3 | Puerto: 22 | Timestamp: 2026-05-21 03:12:55 -> Acceso desde IP blacklist
+[CRITICA] Usuario: hacker1 | IP blacklist: 123.55.77.9 | Pais: china | Hora: 3 | Puerto: 22 | Timestamp: 2026-05-21 03:12:55 -> Acceso desde IP blacklist
+[CRITICA] Usuario: unknown | IP blacklist: 201.44.90.2 | Pais: brasil | Hora: 4 | Puerto: 3389 | Timestamp: 2026-05-21 04:20:10 -> Acceso desde IP blacklist
+[CRITICA] Usuario: unknown | IP blacklist: 201.44.90.2 | Pais: brasil | Hora: 4 | Puerto: 3389 | Timestamp: 2026-05-21 04:20:10 -> Acceso desde IP blacklist
+[CRITICA] Usuario: unknown | IP blacklist: 201.44.90.2 | Pais: brasil | Hora: 4 | Puerto: 3389 | Timestamp: 2026-05-21 04:20:10 -> Acceso desde IP blacklist
+[CRITICA] Usuario: root | IP blacklist: 66.66.66.66 | Pais: rusia | Hora: 1 | Puerto: 22 | Timestamp: 2026-05-21 01:05:30 -> Acceso desde IP blacklist
+[CRITICA] Usuario: root | IP blacklist: 66.66.66.66 | Pais: rusia | Hora: 1 | Puerto: 22 | Timestamp: 2026-05-21 01:05:30 -> Acceso desde IP blacklist
+[CRITICA] Usuario: root | IP blacklist: 66.66.66.66 | Pais: rusia | Hora: 1 | Puerto: 22 | Timestamp: 2026-05-21 01:05:30 -> Acceso desde IP blacklist
+[CRITICA] Usuario: root | IP blacklist: 66.66.66.66 | Pais: rusia | Hora: 1 | Puerto: 22 | Timestamp: 2026-05-21 01:05:30 -> Acceso desde IP blacklist
+[CRITICA] Usuario: root | IP blacklist: 66.66.66.66 | Pais: rusia | Hora: 1 | Puerto: 22 | Timestamp: 2026-05-21 01:05:30 -> Acceso desde IP blacklist
+[CRITICA] Usuario: root | IP blacklist: 66.66.66.66 | Pais: rusia | Hora: 1 | Puerto: 22 | Timestamp: 2026-05-21 01:05:30 -> Acceso desde IP blacklist
+[MEDIA] Usuario: user1 | IP: 192.168.1.10 | Pais: argentina | Hora: 10 | Puerto: 443 | Timestamp: 2026-05-21 10:12:00 -> Multiples IPs detectadas
+[MEDIA] Usuario: user1 | IP: 192.168.1.10 | Pais: argentina | Hora: 10 | Puerto: 443 | Timestamp: 2026-05-21 10:12:00 -> Multiples IPs detectadas
+[MEDIA] Usuario: soporte1 | IP: 10.10.10.4 | Pais: argentina | Hora: 14 | Puerto: 443 | Timestamp: 2026-05-21 14:10:00 -> Multiples IPs detectadas
+[MEDIA] Usuario: soporte1 | IP: 10.10.10.4 | Pais: argentina | Hora: 14 | Puerto: 443 | Timestamp: 2026-05-21 14:10:00 -> Multiples IPs detectadas
+[CRITICA] Usuario: admin1 | IP: 45.33.22.1 | Pais: rusia | Hora: 2 | Puerto: 22 | Timestamp: 2026-05-21 02:10:22 -> Intrusion probable
+[CRITICA] Usuario: user1 | IP: 192.168.1.10 | Pais: argentina | Hora: 10 | Puerto: 443 | Timestamp: 2026-05-21 10:12:00 -> Intrusion probable
+[CRITICA] Usuario: user1 | IP: 192.168.1.10 | Pais: argentina | Hora: 10 | Puerto: 443 | Timestamp: 2026-05-21 10:12:00 -> Intrusion probable
+[CRITICA] Usuario: admin2 | IP: 10.0.0.8 | Pais: argentina | Hora: 23 | Puerto: 443 | Timestamp: 2026-05-21 23:30:10 -> Intrusion probable
+[CRITICA] Usuario: empleado1 | IP: 172.16.0.15 | Pais: argentina | Hora: 15 | Puerto: 443 | Timestamp: 2026-05-21 15:22:01 -> Intrusion probable
+[CRITICA] Usuario: devops1 | IP: 88.22.11.5 | Pais: espana | Hora: 9 | Puerto: 443 | Timestamp: 2026-05-21 09:15:00 -> Intrusion probable
+[CRITICA] Usuario: devops1 | IP: 88.22.11.5 | Pais: espana | Hora: 9 | Puerto: 443 | Timestamp: 2026-05-21 09:15:00 -> Intrusion probable
+[CRITICA] Usuario: root | IP: 66.66.66.66 | Pais: rusia | Hora: 1 | Puerto: 22 | Timestamp: 2026-05-21 01:05:30 -> Intrusion probable
+[CRITICA] Usuario: user2 | IP: 192.168.0.15 | Pais: argentina | Hora: 12 | Puerto: 443 | Timestamp: 2026-05-21 12:45:10 -> Intrusion probable
+[CRITICA] Usuario: admin3 | IP: 177.22.1.9 | Pais: argentina | Hora: 18 | Puerto: 443 | Timestamp: 2026-05-21 18:30:00 -> Intrusion probable
+[CRITICA] Usuario: admin3 | IP: 177.22.1.9 | Pais: argentina | Hora: 18 | Puerto: 443 | Timestamp: 2026-05-21 18:30:00 -> Intrusion probable
+[CRITICA] Usuario: soporte1 | IP: 10.10.10.4 | Pais: argentina | Hora: 14 | Puerto: 443 | Timestamp: 2026-05-21 14:10:00 -> Intrusion probable
+[CRITICA] Usuario: soporte1 | IP: 10.10.10.4 | Pais: argentina | Hora: 14 | Puerto: 443 | Timestamp: 2026-05-21 14:10:00 -> Intrusion probable
+[CRITICA] Usuario: guest | IP: 200.10.55.8 | Pais: brasil | Hora: 21 | Puerto: 22 | Timestamp: 2026-05-21 21:00:00 -> Intrusion probable
+[CRITICA] Usuario: admin1 | IP: 45.33.22.1 | Pais: rusia | Hora: 2 | Puerto: 22 | Timestamp: 2026-05-21 02:10:22 -> Evento critico detectado
+[CRITICA] Usuario: admin2 | IP: 10.0.0.8 | Pais: argentina | Hora: 23 | Puerto: 443 | Timestamp: 2026-05-21 23:30:10 -> Evento critico detectado
+[CRITICA] Usuario: admin1 | IP: 45.33.22.1 | Pais: rusia | Hora: 2 | Puerto: 22 | Timestamp: 2026-05-21 02:10:22 -> Evento critico detectado
+[CRITICA] Usuario: admin1 | IP: 45.33.22.1 | Pais: rusia | Hora: 2 | Puerto: 22 | Timestamp: 2026-05-21 02:10:22 -> Evento critico detectado
+[CRITICA] Usuario: admin1 | IP: 45.33.22.1 | Pais: rusia | Hora: 2 | Puerto: 22 | Timestamp: 2026-05-21 02:10:22 -> Evento critico detectado
+[CRITICA] Usuario: admin1 | IP: 45.33.22.1 | Pais: rusia | Hora: 2 | Puerto: 22 | Timestamp: 2026-05-21 02:10:22 -> Evento critico detectado
+[CRITICA] Usuario: hacker1 | IP: 123.55.77.9 | Pais: china | Hora: 3 | Puerto: 22 | Timestamp: 2026-05-21 03:12:55 -> Evento critico detectado
+[CRITICA] Usuario: hacker1 | IP: 123.55.77.9 | Pais: china | Hora: 3 | Puerto: 22 | Timestamp: 2026-05-21 03:12:55 -> Evento critico detectado
+[CRITICA] Usuario: hacker1 | IP: 123.55.77.9 | Pais: china | Hora: 3 | Puerto: 22 | Timestamp: 2026-05-21 03:12:55 -> Evento critico detectado
+[CRITICA] Usuario: hacker1 | IP: 123.55.77.9 | Pais: china | Hora: 3 | Puerto: 22 | Timestamp: 2026-05-21 03:12:55 -> Evento critico detectado
+[CRITICA] Usuario: hacker1 | IP: 123.55.77.9 | Pais: china | Hora: 3 | Puerto: 22 | Timestamp: 2026-05-21 03:12:55 -> Evento critico detectado
+[CRITICA] Usuario: unknown | IP: 201.44.90.2 | Pais: brasil | Hora: 4 | Puerto: 3389 | Timestamp: 2026-05-21 04:20:10 -> Evento critico detectado
+[CRITICA] Usuario: unknown | IP: 201.44.90.2 | Pais: brasil | Hora: 4 | Puerto: 3389 | Timestamp: 2026-05-21 04:20:10 -> Evento critico detectado
+[CRITICA] Usuario: unknown | IP: 201.44.90.2 | Pais: brasil | Hora: 4 | Puerto: 3389 | Timestamp: 2026-05-21 04:20:10 -> Evento critico detectado
+[CRITICA] Usuario: root | IP: 66.66.66.66 | Pais: rusia | Hora: 1 | Puerto: 22 | Timestamp: 2026-05-21 01:05:30 -> Evento critico detectado
+[CRITICA] Usuario: root | IP: 66.66.66.66 | Pais: rusia | Hora: 1 | Puerto: 22 | Timestamp: 2026-05-21 01:05:30 -> Evento critico detectado
+[CRITICA] Usuario: root | IP: 66.66.66.66 | Pais: rusia | Hora: 1 | Puerto: 22 | Timestamp: 2026-05-21 01:05:30 -> Evento critico detectado
+[CRITICA] Usuario: root | IP: 66.66.66.66 | Pais: rusia | Hora: 1 | Puerto: 22 | Timestamp: 2026-05-21 01:05:30 -> Evento critico detectado
+[CRITICA] Usuario: root | IP: 66.66.66.66 | Pais: rusia | Hora: 1 | Puerto: 22 | Timestamp: 2026-05-21 01:05:30 -> Evento critico detectado
+[CRITICA] Usuario: root | IP: 66.66.66.66 | Pais: rusia | Hora: 1 | Puerto: 22 | Timestamp: 2026-05-21 01:05:30 -> Evento critico detectado
+[ALTA] Usuario: admin1 | IP: 45.33.22.1 | Pais: rusia | Hora: 2 | Puerto: 22 | Timestamp: 2026-05-21 02:10:22 -> Ataque por IP detectado
+[ALTA] Usuario: hacker1 | IP: 123.55.77.9 | Pais: china | Hora: 3 | Puerto: 22 | Fallos: 5 | Timestamp: 2026-05-21 03:12:55 -> Usuario con solo accesos fallidos
+[ALTA] Usuario: hacker1 | IP: 123.55.77.9 | Pais: china | Hora: 3 | Puerto: 22 | Fallos: 5 | Timestamp: 2026-05-21 03:12:55 -> Usuario con solo accesos fallidos
+[ALTA] Usuario: hacker1 | IP: 123.55.77.9 | Pais: china | Hora: 3 | Puerto: 22 | Fallos: 5 | Timestamp: 2026-05-21 03:12:55 -> Usuario con solo accesos fallidos
+[ALTA] Usuario: hacker1 | IP: 123.55.77.9 | Pais: china | Hora: 3 | Puerto: 22 | Fallos: 5 | Timestamp: 2026-05-21 03:12:55 -> Usuario con solo accesos fallidos
+[ALTA] Usuario: hacker1 | IP: 123.55.77.9 | Pais: china | Hora: 3 | Puerto: 22 | Fallos: 5 | Timestamp: 2026-05-21 03:12:55 -> Usuario con solo accesos fallidos
+[ALTA] Usuario: unknown | IP: 201.44.90.2 | Pais: brasil | Hora: 4 | Puerto: 3389 | Fallos: 3 | Timestamp: 2026-05-21 04:20:10 -> Usuario con solo accesos fallidos
+[ALTA] Usuario: unknown | IP: 201.44.90.2 | Pais: brasil | Hora: 4 | Puerto: 3389 | Fallos: 3 | Timestamp: 2026-05-21 04:20:10 -> Usuario con solo accesos fallidos
+[ALTA] Usuario: unknown | IP: 201.44.90.2 | Pais: brasil | Hora: 4 | Puerto: 3389 | Fallos: 3 | Timestamp: 2026-05-21 04:20:10 -> Usuario con solo accesos fallidos
+[ALTA] Usuario: testuser | IP: 111.90.22.1 | Pais: china | Hora: 5 | Puerto: 3389 | Fallos: 3 | Timestamp: 2026-05-21 05:14:22 -> Usuario con solo accesos fallidos
+[ALTA] Usuario: testuser | IP: 111.90.22.1 | Pais: china | Hora: 5 | Puerto: 3389 | Fallos: 3 | Timestamp: 2026-05-21 05:14:22 -> Usuario con solo accesos fallidos
+[ALTA] Usuario: testuser | IP: 111.90.22.1 | Pais: china | Hora: 5 | Puerto: 3389 | Fallos: 3 | Timestamp: 2026-05-21 05:14:22 -> Usuario con solo accesos fallidos
+[CRITICA] Usuario: admin1 | IP: 45.33.22.1 | Pais: rusia | Hora: 2 | Puerto: 22 | Timestamp: 2026-05-21 02:10:22 -> Ataque coordinado detectado
+
+ESTADISTICAS
+-------------
+Total de logs: 37
+Accesos exitosos: 14
+Accesos fallidos: 23
+Usuarios con fuerza bruta: 1
+Usuarios criticos: 0
+Administradores fuera de horario: 2
+Usuarios con accesos desde multiples paises: 0
+
+====================================
+      FIN DEL REPORTE
+====================================

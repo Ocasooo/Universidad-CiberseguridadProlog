@@ -27,9 +27,9 @@ function runGoal(goal, factsFile) {
       : `"${PROLOG_FILE}"`;
     const cleaned = goal.replace(/\n\s*/g, ' ').replace(/\s{2,}/g, ' ').trim(); //limpia consulta
                   //swipl -q -s combined.pl -g "consulta" -t "halt(1)"
-    const cmd = `"${swipl}" -q -s ${source} -g "${cleaned}" -t "halt(1)"`;//Construye el comando
+    const cmd = `"${swipl}" -q -s ${source} -g "${cleaned}" -t halt`;//Construye el comando
     //ejecuta el comando
-    exec(cmd, { timeout: 30000, maxBuffer: 1024 * 1024 }, (err, stdout, stderr) => {
+    exec(cmd, { timeout: 30000, maxBuffer: 1024 * 1024, cwd: __dirname }, (err, stdout, stderr) => {
       if (err && !stdout) {
         const msg = (stderr || err.message || 'Error desconocido').trim();
         return reject(new Error('Error al ejecutar Prolog: ' + msg));
@@ -470,4 +470,15 @@ async function getStatistics(factsFile) {
   return parseStatistics(output);
 }
 
-module.exports = { runFullAnalysis, getAlerts, getLogs, getStatistics };
+async function runReport(factsFile) {
+  const goal = `generar_reporte`;
+  await runGoal(goal, factsFile);
+
+  const reportPath = path.join(PROLOG_DIR, '..', 'reporte.txt');
+  if (!require('fs').existsSync(reportPath)) {
+    throw new Error('No se pudo generar el reporte desde Prolog');
+  }
+  return reportPath;
+}
+
+module.exports = { runFullAnalysis, getAlerts, getLogs, getStatistics, runReport };

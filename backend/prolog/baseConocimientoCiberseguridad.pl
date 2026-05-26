@@ -196,6 +196,33 @@
     usuario_sospechoso(Usuario) :-
         uso_puerto_peligroso(Usuario).
 
+    %Multiples paises
+
+    multiples_paises(Usuario) :-
+        log(_, Usuario, _, _, _, _, Pais1),
+        log(_, Usuario, _, _, _, _, Pais2),
+        Pais1 \= Pais2.
+
+    %Solo Fallos
+
+    solo_fallos(Usuario) :-
+        log(_, Usuario, _, fallo, _, _, _),
+        \+ log(_, Usuario, _, exito, _, _, _).
+
+    %Ataque coordinado
+
+    ataque_coordinado(Pais) :-
+        findall(
+            Usuario,
+            (
+                log(_, Usuario, _, fallo, _, _, Pais),
+                rol(Usuario, desconocido)
+            ),
+            Lista
+        ),
+        length(Lista, N),
+        N >= 3.
+
 
     %Generar alertas
 

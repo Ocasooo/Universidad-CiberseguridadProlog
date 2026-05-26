@@ -163,7 +163,7 @@ function parseSuspiciousUsers(output) {
 // ;true -> si no hay resultado no falles
 //findall -> encontrar todos
 //format('imprime en este formato ~a(como ${},y los toma de la lista)',[e1,e2,e3,...])
-async function runFullAnalysis(factsFile) {
+async function  runFullAnalysis(factsFile) {
   const goal = `
     (
       writeln('===LOGS==='),
